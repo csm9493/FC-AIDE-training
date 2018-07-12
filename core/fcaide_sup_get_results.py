@@ -86,11 +86,7 @@ class Get_results(keras.callbacks.Callback):
         mean, best_ep, best_PSNR = self.test_model(epoch)
         
         print ('\n epoch : ' + str(epoch+1) +' mean_PSNR : ' + str(mean) + ' Best Epoch : ' + str(best_ep,)+ ' Best PSNR : ' + str(best_PSNR))
-        
-        #optimizer = self.model.optimizer
-        #lr = K.eval(optimizer.lr * (1. / (1. + optimizer.decay * optimizer.iterations)))
-        #print('\nLR: {:.6f}\n'.format(lr))
-        
+
         self.logs.append(logs)
         self.x.append(self.i)
         self.tr_losses.append(logs.get('loss'))
@@ -107,7 +103,6 @@ class Get_results(keras.callbacks.Callback):
         plt.legend()
         plt.savefig('./result_data/'+self.save_file_name+'_tePSNR.png')
         plt.clf()
-        
-        self.model_for_saving.save_weights('./weights/'+self.save_file_name+'_epoch'+str(epoch+1)+'.hdf5')
-        
-        sio.savemat('./result_data/'+self.save_file_name+'_Result',{'best_PSNR':self.best_PSNR,'training_loss':self.tr_losses,'list_of_best_PSNR':self.list_of_best_PSNR,'Test_PSNR':self.list_of_test_PSNR,'saving_denoised_big_test_image':self.saving_denoised_big_test_image,})
+
+        sio.savemat('./result_data/'+self.save_file_name+'_Result',  
+                    {'PSNR_arr_epoch':self.list_of_test_PSNR, 'loss_arr_epoch':self.tr_losses, 'max_PSNR_denoised_images':self.saving_denoised_big_test_image,})
