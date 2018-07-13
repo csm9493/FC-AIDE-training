@@ -21,11 +21,11 @@ date_ = '180712'
 
 lrate_ = 0.001
 decay_ = 0.0001
-gpus_ = 2
+gpus_ = 4
 trdata_flag_ = 1
 std_ = 30
 mini_batch_size_ = 64
-ep_ = 50
+ep_ = 10
 
 
 num_of_layer = 22
